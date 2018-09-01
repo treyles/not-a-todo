@@ -17,7 +17,6 @@ $(function() {
   // PUT request
   $('.completed-btn').click(e => {
     $target = $(e.target);
-    $target.toggleClass('completed');
     const id = $target.attr('data-id');
     $.ajax({
       url: `/todos/update/${id}`,

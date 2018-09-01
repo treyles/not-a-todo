@@ -5,8 +5,13 @@ const Todo = require('../models/todo');
 router.get('/', (req, res) => {
   Todo.find({})
     .then(results => {
+      const todos = results.filter(todo => !todo.done);
+      const completed = results.filter(todo => todo.done);
+
       res.render('index', {
-        todos: results
+        // todos: results,
+        todos: todos.reverse(),
+        completedTodos: completed
       });
     })
     .catch(err => console.log(err));
@@ -14,10 +19,10 @@ router.get('/', (req, res) => {
 
 // NEW todo
 router.post('/todos', (req, res) => {
-  // if (!req.body.description.length) {
-  //   res.redirect('/');
-  //   return;
-  // }
+  if (!req.body.description.length) {
+    res.redirect('/');
+    return;
+  }
 
   let newTodo = new Todo({
     description: req.body.description
