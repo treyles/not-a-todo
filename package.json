@@ -6,7 +6,7 @@
   "author": "treyles",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon -e .mustache,.css server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
