@@ -6,7 +6,10 @@
   "author": "treyles",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": "8.9.4"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
