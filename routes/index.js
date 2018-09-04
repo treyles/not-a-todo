@@ -1,8 +1,9 @@
 const router = require('express').Router();
+var path = require('path');
 const Todo = require('../models/todo');
 
 router.get('/', (req, res) => {
-  res.sendFile('/Users/troy/Desktop/dojo/todo/views/index.html');
+  res.sendFile(path.join(__dirname + '/../views/index.html'));
 });
 
 // fetch all todos
