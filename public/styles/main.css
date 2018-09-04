@@ -40,6 +40,7 @@ h5 {
   box-shadow: -2px 15px 27px rgba(0, 0, 0, 0.12);
 }
 
+/* second layer for box-shadow */
 .container:after {
   content: '';
   position: absolute;
@@ -93,6 +94,7 @@ ul {
 }
 
 li {
+  z-index: 4;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -124,16 +126,13 @@ li .todo-content.completed {
   border-radius: 500px;
   outline: none;
   border: 1px solid #e3e3e3;
+  background: transparent;
   padding: 0;
   cursor: pointer;
   transition: 0.3s ease;
 }
 
-.completed-btn:hover {
-  border: 1px solid #fab64e;
-  background-color: #fab64e;
-}
-
+.completed-btn:hover,
 .completed-btn.completed {
   border: 1px solid #fab64e;
   background-color: #fab64e;
@@ -143,6 +142,7 @@ li .todo-content.completed {
   width: 20px;
   height: 20px;
   outline: none;
+  background: transparent;
   border: 0;
   cursor: pointer;
 }
@@ -157,7 +157,6 @@ li.placeholder {
   align-items: center;
   background: transparent;
   color: #dadada;
-  text-shadow: 1px 1px rgba(255, 255, 255, 0.24);
   box-shadow: none;
   border: 0;
 }

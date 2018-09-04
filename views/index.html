@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Todos</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="../scripts/main.js"></script>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h5 class="date"></h5>
+      <h1 class="day"></h1>
+    </header>
+    <input type="text" name="description" autocomplete="off" placeholder="+ Add Not-Todo" maxlength="84">
+    <ul id="todos"></ul>
+    <div class="separator"></div>
+    <ul id="todos-completed"></ul>
+  </div>
+</body>
+
+<!-- Handlebars todo template -->
+<script id="todo-partial" type="text/template">
+  <li class="todo-item" data-id="{{_id}}">
+    <button class="completed-btn {{#done}}completed{{/done}}">
+      <svg width="10px" height="7px" viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"> <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M3.39410286,7 C3.23438119,7 3.07452064,6.94103832 2.95243774,6.82284573 L0.183419677,4.14291628 C-0.0608850215,3.9065311 -0.0611627983,3.52301096 0.182725235,3.28622194 C0.426613268,3.04956753 0.822445213,3.04929829 1.06661102,3.28568347 L3.39410286,5.53820806 L8.93338898,0.177272232 C9.17755479,-0.059382177 9.57324784,-0.0589783298 9.81727477,0.177810695 C10.0611628,0.41459972 10.060885,0.798119863 9.81658032,1.03450504 L3.83576797,6.82284573 C3.71368507,6.94103832 3.55382452,7 3.39410286,7" id="checkmark" fill="#FFFFFF"></path></g></svg>
+    </button>
+    <div class="todo-content {{#done}}completed{{/done}}">
+      <h5>{{description}}</h5>
+    </div>
+    <button class="delete-btn">
+      <svg width="9px" height="9px" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg"> <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M8.77192101,7.67044946 C9.07601992,7.97454838 9.07601992,8.46782209 8.77192101,8.77192101 C8.61978501,8.924057 8.42057166,9.00003846 8.22118524,9.00003846 C8.02179881,9.00003846 7.82258546,8.924057 7.67044946,8.77192101 L4.4999976,5.60146914 L1.32954573,8.77192101 C1.17740973,8.924057 0.978196383,9.00003846 0.778809957,9.00003846 C0.579423531,9.00003846 0.380210184,8.924057 0.228074187,8.77192101 C-0.0760247289,8.46782209 -0.0760247289,7.97454838 0.228074187,7.67044946 L3.39852605,4.4999976 L0.228074187,1.32954573 C-0.0760247289,1.02544681 -0.0760247289,0.532173102 0.228074187,0.228074187 C0.53234618,-0.0760247289 1.02527373,-0.0760247289 1.32954573,0.228074187 L4.4999976,3.39852605 L7.67044946,0.228074187 C7.97472146,-0.0760247289 8.46764901,-0.0760247289 8.77192101,0.228074187 C9.07601992,0.532173102 9.07601992,1.02544681 8.77192101,1.32954573 L5.60146914,4.4999976 L8.77192101,7.67044946 Z" id="cross" fill="#E3E3E3"></path></g></svg>
+    </button>
+  </li>
+</script>
+
+<!-- Handlebars todos incomplete template -->
+<script id="todos-template" type="text/template">
+  {{#each filteredTodos}}
+    {{> todoPartial}}
+    {{else}}
+    <li class="placeholder">You have nothing to not do!</li>
+  {{/each}}
+</script>
+
+<!-- Handlebars todos completed template -->
+<script id="completed-template" type="text/template">
+  {{#each filteredCompleted}}
+    {{> todoPartial}}
+    {{else}}
+    <li class="placeholder">No completed not-todos.</li>
+  {{/each}}
+</script>
+
+</html>

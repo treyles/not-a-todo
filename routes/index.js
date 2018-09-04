@@ -1,71 +1,40 @@
 const router = require('express').Router();
 const Todo = require('../models/todo');
 
-// GET todos
 router.get('/', (req, res) => {
-  Todo.find({})
-    .then(results => {
-      const todos = results.filter(todo => !todo.done);
-      const completed = results.filter(todo => todo.done);
-
-      res.render('index', {
-        // todos: results,
-        todos: todos.reverse(),
-        completedTodos: completed
-      });
-    })
-    .catch(err => console.log(err));
+  res.sendFile('/Users/troy/Desktop/dojo/todo/views/index.html');
 });
 
-// NEW todo
-router.post('/todos', (req, res) => {
-  if (!req.body.description.length) {
-    res.redirect('/');
-    return;
-  }
+// fetch all todos
+router.get('/api/todos', (req, res) => {
+  Todo.find({})
+    .then(results => res.json(results))
+    .catch(() => res.sendStatus(500));
+});
 
-  let newTodo = new Todo({
+// add new todo
+router.post('/api/todos', (req, res) => {
+  const newTodo = new Todo({
     description: req.body.description
   });
 
   newTodo
     .save()
-    .then(result => {
-      // console.log(result);
-      res.redirect('/');
-    })
-    .catch(err => {
-      console.log(err);
-      res.redirect('/');
-    });
+    .then(result => res.json(result))
+    .catch(() => res.sendStatus(500));
 });
 
-// DELETE todo
-router.delete('/todos/:id', (req, res) => {
+// delete todo
+router.delete('/api/todos/:id', (req, res) => {
   const todoId = req.params.id;
 
   Todo.findByIdAndRemove(todoId)
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => console.log(err));
+    .then(result => res.json(result))
+    .catch(() => res.sendStatus(500));
 });
 
-// DELETE completed
-// router.delete('/completed', (req, res) => {
-//   Todo.deleteMany({
-//     done: true
-//   })
-//     .then(result => {
-//       res.send(result);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// });
-
-// UPDATE todo
-router.put('/todos/update/:id', (req, res) => {
+// update completed status
+router.put('/api/todos/:id', (req, res) => {
   const todoId = req.params.id;
 
   Todo.findById(todoId)
@@ -74,9 +43,8 @@ router.put('/todos/update/:id', (req, res) => {
       result.done = !result.done;
       return result.save();
     })
-    .then(response => {
-      res.send(response);
-    });
+    .then(response => res.json(response))
+    .catch(() => res.sendStatus(500));
 });
 
 module.exports = router;
