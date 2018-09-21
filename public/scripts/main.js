@@ -14,9 +14,9 @@ $(function() {
 
     bindEvents() {
       $('.container')
-        .on('keypress', 'input', this.create.bind(this))
-        .on('click', '.delete-btn', this.delete.bind(this))
-        .on('click', '.completed-btn', this.complete.bind(this));
+        .on('keypress', 'input', this.create)
+        .on('click', '.delete-btn', this.delete)
+        .on('click', '.completed-btn', this.complete);
     },
 
     create(e) {
